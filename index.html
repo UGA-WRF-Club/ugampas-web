@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+            background-color: rgb(218, 217, 217);
+        }
+        </style>
+        <title>UGA-MPAS Viewer</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div style="text-align: center;">
+            <h1>UGA-MPAS Viewer</h1>
+            <label for="runSelector">Select Run:</label>
+            <select id="runSelector">
+                <option value="2025102600">2025102600</option>
+            </select>
+            <h2>Plots</h2>
+            <label for="dropdown">Select Product:</label>
+            <div class="dropdown">
+                <button class="dropbtn">Surface</button>
+                <div class="dropdown-content">
+                    <a id="t2m" href="#">2m Temperature</a>
+                    <a id="dewpoint_surface" href="#">2m Dewpoint</a>
+                    <a id="windspeed10m" href="#">10m Wind Speed</a>
+                    <a id="mslp" href="#">MSLP</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Precip</button>
+                <div class="dropdown-content">
+                    <a id="refl10cm_1km" href="#">Simulated Reflectivity</a>
+                    <a id="tot_precip" href="#">Total Precip</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Severe</button>
+                <div class="dropdown-content">
+                    <a id="cape" href="#">CAPE</a>
+                    <a id="cin" href="#">CIN</a>
+                </div>
+            </div>
+            <br>
+            <img id="weathermapMain" src="" alt="Model Image" width="900" style="border: 2px solid rgb(176, 59, 30);">
+            <br>
+            <label for="timeSlider">Timestep:</label>
+            <input type="range" id="timeSlider" min="1" max="48" value="0"/>
+            <label id="timeLabel">:3</label>
+        </div>
+    </body>
+    <script src="script.js"></script>
+</html>
