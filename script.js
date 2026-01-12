@@ -9,14 +9,12 @@ const runSelector = document.getElementById('runSelector');
 const weathermapMain = document.getElementById('weathermapMain');
 const playButton = document.getElementById('playButton')
 const pauseButton = document.getElementById('pauseButton')
-const speedSelector = document.getElementById('speedSlider')
+const speedSelector = document.getElementById('speedSelector')
 let product = "t2m";
 var timestep = Number(slider.value);
 
-}
 playButton.addEventListener('click', startLoop);
 pauseButton.addEventListener('click', endLoop);
-loadDirectories();
 function updateImage(selectedProduct = product) {
     product = selectedProduct;
     const run = runSelector.value;
@@ -89,7 +87,7 @@ document.querySelectorAll('.dropdown-content a').forEach(item => {
 
 function startLoop() {
     if (timestep === hours ) timestep = 0;
-    loopInterval = setInterval(advanceLoop, SpeedSelector.value);
+    loopInterval = setInterval(advanceLoop, speedSelector.value);
     playButton.disabled = true,
     pauseButton.disabled = false,
     speedSelector.disabled = true;
@@ -101,9 +99,10 @@ function endLoop() {
     speedSelector.disabled = false;
 }
 function advanceLoop() {
-    timestep = (timeskip +1) % hours;
+    timestep = (timestep + 1) % hours;
     slider.value = timestep;
     updateImage();
+}
 
 slider.addEventListener('input', () => updateImage());
 
