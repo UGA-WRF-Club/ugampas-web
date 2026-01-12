@@ -16,7 +16,7 @@
         <div style="text-align: center;">
             <h1>UGA-MPAS Viewer</h1>
             <div style="background-color:rgb(0, 0, 0);color: rgb(221, 80, 45); text-align: center; padding-left: 5px; padding-right: 5px;">
-                <h3>this page does not function online yet :-(</h3>
+                <h3>I've left the nest, spread my wings, and I'm free for all to see!<br>00z run goes out to 48hr, 12/18z go out 24hr. there is no 06z run. in addition, unfinished runs are displayed.<br>the time slider is not aware of how many hours the run has, so if you see a blank image in any hour before 24 (48 for 00z runs), it means the run has not finished yet.<br>also, of course, a 24-hour run will not have data past 24 hours.<br>contact scout.carlson@uga.edu if you have any questions.</h3>
             </div>
             <label for="runSelector">Select Run:</label>
             <select id="runSelector">
@@ -35,8 +35,18 @@
             <div class="dropdown">
                 <button class="dropbtn">Precip</button>
                 <div class="dropdown-content">
-                    <a id="refl10cm_1km" href="#">Simulated Reflectivity</a>
+                    <a id="refl10cm_1km_max" href="#">Simulated Reflectivity</a>
                     <a id="total_precip" href="#">Total Precip</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Alofts - Temps</button>
+                <div class="dropdown-content">
+                    <a id="temperature_925hPa" href="#">Temp @ 925mb</a>
+                    <a id="temperature_850hPa" href="#">Temp @ 850mb</a>
+                    <a id="temperature_700hPa" href="#">Temp @ 700mb</a>
+                    <a id="temperature_500hPa" href="#">Temp @ 500mb</a>
+                    <a id="temperature_250hPa" href="#">Temp @ 250mb</a>
                 </div>
             </div>
             <div class="dropdown">
@@ -44,6 +54,8 @@
                 <div class="dropdown-content">
                     <a id="cape" href="#">CAPE</a>
                     <a id="cin" href="#">CIN</a>
+                    <a id="srh_0_1km" href="#">0-1km SRH</a>
+                    <a id="srh_0_3km" href="#">0-3km SRH</a>
                 </div>
             </div>
             <br>

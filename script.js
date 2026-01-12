@@ -1,4 +1,6 @@
-const outputs = "outputs/";
+//offline mode 
+//const outputs = "outputs/";
+const outputs = "https://storage.googleapis.com/mpas-bucket/outputs/"
 const hours = 48;
 
 const slider = document.getElementById('timeSlider');
@@ -21,33 +23,41 @@ function updateImage(selectedProduct = product) {
     timeLabel.textContent = `Hour ${timestep}/${hours}`;
     weathermapMain.src = `${outputs}${run}/${product}/hour_${String(timestep).padStart(3, '0')}.png`;
 }
-async function populateRunSelector() {
+
+async function populateRunSelector(pageToken = '') {
+    const baseUrl = 'https://storage.googleapis.com/storage/v1/b/mpas-bucket/o?delimiter=/&prefix=outputs/';
+    let directories = [];
+
     try {
-        const response = await fetch('outputs/');
-        const htmlText = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlText, 'text/html');
-        const links = Array.from(doc.querySelectorAll('a'));
-        const runNames = links
-            .map(link => link.textContent)
-            .filter(dirName => dirName.endsWith('/'))
-            .map(dirName => dirName.slice(0, -1))
-            .sort((a, b) => b.localeCompare(a));
-        runNames.forEach(runName => {
-            const option = document.createElement('option');
-            option.value = runName;
-            option.textContent = runName;
-            runSelector.appendChild(option);
+        while (true) {
+            const response = await fetch(pageToken ? `${baseUrl}&pageToken=${pageToken}` : baseUrl);
+            const data = await response.json();
+            
+            directories = directories.concat(data.prefixes || []);
+            
+            if (!data.nextPageToken) break;
+            pageToken = data.nextPageToken;
+        }
+        directories.reverse().forEach(dir => {
+            const folderName = dir.replace('outputs/', '').replace(/\/$/, '');
+            
+            if (folderName) {
+                let option = document.createElement('option');
+                option.value = folderName;
+                option.textContent = folderName.replaceAll("-", '/').replace("_", " ").replaceAll("_", ":");
+                runSelector.appendChild(option);
+            }
         });
 
     } catch (error) {
-        console.error('Error fetching or parsing run directories:', error);
+        console.error('Error fetching runs from GCS:', error);
         const option = document.createElement('option');
         option.value = '';
         option.textContent = 'Error loading runs';
         runSelector.appendChild(option);
     }
 }
+
 async function initializeApp() {
     await populateRunSelector();
     updateImage("t2m");
