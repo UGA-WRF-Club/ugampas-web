@@ -7,10 +7,16 @@ const slider = document.getElementById('timeSlider');
 const timeLabel = document.getElementById('timeLabel');
 const runSelector = document.getElementById('runSelector');
 const weathermapMain = document.getElementById('weathermapMain');
-
+const playButton = document.getElementById('playButton')
+const pauseButton = document.getElementById('pauseButton')
+const speedSelector = document.getElementById('speedSlider')
 let product = "t2m";
 var timestep = Number(slider.value);
 
+}
+playButton.addEventListener('click', startLoop);
+pauseButton.addEventListener('click', endLoop);
+loadDirectories();
 function updateImage(selectedProduct = product) {
     product = selectedProduct;
     const run = runSelector.value;
@@ -77,8 +83,27 @@ document.querySelectorAll('.dropdown-content a').forEach(item => {
             updateImage(event.target.id);
             slider.disabled = false;
         }
-    });
+        
 });
+});
+
+function startLoop() {
+    if (timestep === hours ) timestep = 0;
+    loopInterval = setInterval(advanceLoop, SpeedSelector.value);
+    playButton.disabled = true,
+    pauseButton.disabled = false,
+    speedSelector.disabled = true;
+}
+function endLoop() {
+    clearInterval(loopInterval);
+    playButton.disabled = false,
+    pauseButton.disabled = true;
+    speedSelector.disabled = false;
+}
+function advanceLoop() {
+    timestep = (timeskip +1) % hours;
+    slider.value = timestep;
+    updateImage();
 
 slider.addEventListener('input', () => updateImage());
 
