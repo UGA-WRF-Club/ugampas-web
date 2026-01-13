@@ -44,7 +44,7 @@ async function populateRunSelector(pageToken = '') {
             if (folderName) {
                 let option = document.createElement('option');
                 option.value = folderName;
-                option.textContent = folderName.replaceAll("-", '/').replace("_", " ").replaceAll("_", ":");
+                option.textContent = folderName.slice(4, 6) + "/" + folderName.slice(6, 8) + "/" + folderName.slice(0, 4) + " " + folderName.slice(8, 10) + "z"
                 runSelector.appendChild(option);
             }
         });
