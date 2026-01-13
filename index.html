@@ -16,7 +16,7 @@
         <div style="text-align: center;">
             <h1>UGA-MPAS Viewer</h1>
             <div style="background-color:rgb(0, 0, 0);color: rgb(221, 80, 45); text-align: center; padding-left: 5px; padding-right: 5px;">
-                <h3>I've left the nest, spread my wings, and I'm free for all to see!<br>00z run goes out to 48hr, 12/18z go out 24hr. there is no 06z run. in addition, unfinished runs are displayed.<br>the time slider is not aware of how many hours the run has, so if you see a blank image in any hour before 24 (48 for 00z runs), it means the run has not finished yet.<br>also, of course, a 24-hour run will not have data past 24 hours.<br>contact scout.carlson@uga.edu if you have any questions.</h3>
+                <h3>I've left the nest, spread my wings, and I'm free for all to see!<br>00z run goes out to 48hr, 12/18z go out 24hr. there is no 06z run. in addition, unfinished runs are displayed.<br>if you see a blank image in any hour before 24 (48 for 00z runs), it means the run has not finished yet (aka in progress).<br>contact scout.carlson@uga.edu if you have any questions.</h3>
             </div>
             <label for="runSelector">Select Run:</label>
             <select id="runSelector">
@@ -64,7 +64,7 @@
             <label for="timeSlider">Timestep:</label>
             <input type="range" id="timeSlider" min="1" max="48" value="0"/>
             <label id="timeLabel">:3</label>
-	    <p>this project is open source. the source for the website can be found <a href="https://github.com/UGA-WRF-Club/ugampas-web">here</a>.</p>
+	    <p>this project is open source. the source for the website can be found <a href="https://github.com/UGA-WRF-Club/ugampas-web">here</a>.<br>check out my sister project/our other weather model, <a href="https://wrf.weatherdawgs.net">the UGA-WRF</a>!</p>
         </div>
     </body>
     <script src="script.js"></script>

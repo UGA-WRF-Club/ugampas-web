@@ -1,7 +1,7 @@
 //offline mode 
 //const outputs = "outputs/";
 const outputs = "https://storage.googleapis.com/mpas-bucket/outputs/"
-const hours = 48;
+let hours = 48;
 
 const slider = document.getElementById('timeSlider');
 const timeLabel = document.getElementById('timeLabel');
@@ -19,6 +19,14 @@ function updateImage(selectedProduct = product) {
         weathermapMain.src = "";
         return;
     }
+    const runTime = run.slice(8, 10);
+    if (runTime === "00") {
+        hours = 48;
+    } 
+    else {
+        hours = 24;
+    }
+    slider.max = hours;
     timestep = Number(slider.value);
     timeLabel.textContent = `Hour ${timestep}/${hours}`;
     weathermapMain.src = `${outputs}${run}/${product}/hour_${String(timestep).padStart(3, '0')}.png`;
@@ -27,20 +35,16 @@ function updateImage(selectedProduct = product) {
 async function populateRunSelector(pageToken = '') {
     const baseUrl = 'https://storage.googleapis.com/storage/v1/b/mpas-bucket/o?delimiter=/&prefix=outputs/';
     let directories = [];
-
     try {
         while (true) {
             const response = await fetch(pageToken ? `${baseUrl}&pageToken=${pageToken}` : baseUrl);
             const data = await response.json();
-            
             directories = directories.concat(data.prefixes || []);
-            
             if (!data.nextPageToken) break;
             pageToken = data.nextPageToken;
         }
         directories.reverse().forEach(dir => {
             const folderName = dir.replace('outputs/', '').replace(/\/$/, '');
-            
             if (folderName) {
                 let option = document.createElement('option');
                 option.value = folderName;
@@ -66,7 +70,6 @@ async function initializeApp() {
 document.querySelectorAll('.dropdown-content a').forEach(item => {
     item.addEventListener('click', event => {
         event.preventDefault();
-
         if (event.target.id == "24hr_change") {
             const run = runSelector.value;
             console.log("24hr change selected");
