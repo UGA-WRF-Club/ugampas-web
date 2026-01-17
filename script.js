@@ -7,6 +7,29 @@ const slider = document.getElementById('timeSlider');
 const timeLabel = document.getElementById('timeLabel');
 const runSelector = document.getElementById('runSelector');
 const weathermapMain = document.getElementById('weathermapMain');
+const playButton = document.getElementById('playButton')
+const pauseButton = document.getElementById('pauseButton')
+const speedSelector = document.getElementById('speedSelector')
+playButton.addEventListener('click', startLoop);
+pauseButton.addEventListener('click', endLoop);
+function startLoop() {
+    if (timestep === hours ) timestep = 0;
+    loopInterval = setInterval(advanceLoop, speedSelector.value);
+    playButton.disabled = true,
+    pauseButton.disabled = false,
+    speedSelector.disabled = true;
+}
+function endLoop() {
+    clearInterval(loopInterval);
+    playButton.disabled = false,
+    pauseButton.disabled = true;
+    speedSelector.disabled = false;
+}
+function advanceLoop() {
+    timestep = (timestep +1) % hours;
+    slider.value = timestep;
+    updateImage();
+}
 
 let product = "t2m";
 var timestep = Number(slider.value);
