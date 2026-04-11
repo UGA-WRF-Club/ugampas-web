@@ -42,14 +42,7 @@ function updateImage(selectedProduct = product) {
         weathermapMain.src = "";
         return;
     }
-    const runTime = run.slice(8, 10);
-    if (runTime === "00") {
-        hours = 48;
-    } 
-    else {
-        hours = 24;
-    }
-    slider.max = hours;
+    slider.max = 48;
     timestep = Number(slider.value);
     timeLabel.textContent = `Hour ${timestep}/${hours}`;
     weathermapMain.src = `${outputs}${run}/${product}/hour_${String(timestep).padStart(3, '0')}.png`;
