@@ -47,7 +47,7 @@ function updateImage(selectedProduct = product) {
         hours = 48;
     } 
     else {
-        hours = 24;
+        hours = 48;
     }
     slider.max = hours;
     timestep = Number(slider.value);
